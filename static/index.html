@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dark Messenger</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="authOverlay" class="auth-overlay">
+        <div class="auth-box">
+            <div class="logo">
+                <i class="fas fa-comment-dots"></i>
+                <h2>Dark Messenger</h2>
+            </div>
+            <div class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Username" autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+                </div>
+                <button class="login-btn" onclick="login()">
+                    <span>Sign In</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container hidden">
+        <div class="sidebar">
+            <div class="header">
+                <div class="user-info">
+                    <div class="avatar"><i class="fas fa-user"></i></div>
+                    <div class="username" id="currentUsername"></div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+            <div class="chat-list-header">Chats</div>
+            <div id="chatList" class="chat-list">
+                <div class="chat-item active" data-chat="General">
+                    <i class="fas fa-users"></i>
+                    <span>Наше местечко</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <i class="fas fa-hashtag"></i>
+                    <h3 id="currentChat">Наше местечко</h3>
+                </div>
+                <div class="online-count">
+                    <i class="fas fa-circle"></i>
+                    <span id="onlineCount">1 online</span>
+                </div>
+            </div>
+            <div id="messages" class="messages"></div>
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="messageInput" placeholder="Type your message...">
+                    <button class="send-btn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
