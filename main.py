@@ -10,8 +10,10 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 import uuid
 import os
+from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
+load_dotenv()
 # Security settings
 SECRET_KEY = os.urandom(24).hex()
 ALGORITHM = "HS256"
@@ -91,21 +93,21 @@ def create_default_data():
     db = SessionLocal()
     try:
         if not db.query(User).first():
-            default_users = [
-                {"username": "arudenaytsan", "password": "gdbHDJ231D"},
-                {"username": "klementevyp", "password": "jhbsfHBD7213"}
-            ]
-            
-            for user_data in default_users:
+            # Загружаем пользователей из .env
+            users = []
+            i = 1
+            while True:
+                username = os.getenv(f"USER_{i}_USERNAME")
+                password = os.getenv(f"USER_{i}_PASSWORD")
+                if not username or not password:
+                    break
+                users.append({"username": username, "password": password})
+                i += 1
+
+            for user_data in users:
                 hashed_password = get_password_hash(user_data["password"])
                 user = User(username=user_data["username"], hashed_password=hashed_password)
                 db.add(user)
-            
-            default_chats = ["Sweet Home"]
-            for chat_name in default_chats:
-                if not db.query(Chat).filter(Chat.name == chat_name).first():
-                    chat = Chat(name=chat_name)
-                    db.add(chat)
             
             db.commit()
     finally:
